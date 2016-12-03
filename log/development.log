@@ -1,0 +1,1292 @@
+  [1m[35m (6.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying PRIMARY KEY)[0m
+  [1m[35m (2.6ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1326935745445630635);[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateCustomers (20161201135339)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (4.1ms)[0m  [1m[35mCREATE TABLE "customers" ("id" serial primary key, "name" character varying, "surname" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20161201135339"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", :environment], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", 2016-12-01 13:57:43 UTC], ["updated_at", 2016-12-01 13:57:43 UTC]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(1326935745445630635)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (3.6ms)[0m  [1m[34mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'customers'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+Started GET "/" for ::1 at 2016-12-01 14:58:44 +0100
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (2.3ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (23.4ms)
+Completed 200 OK in 863ms (Views: 836.6ms | ActiveRecord: 6.3ms)
+
+
+Started GET "/" for ::1 at 2016-12-02 17:26:50 +0100
+  [1m[36mActiveRecord::SchemaMigration Load (2.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (1.4ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (13.0ms)
+Completed 200 OK in 267ms (Views: 249.6ms | ActiveRecord: 4.1ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:26:53 +0100
+Processing by CustomersController#new as HTML
+  Rendering customers/new.html.erb within layouts/application
+  Rendered customers/_form.html.erb (16.6ms)
+  Rendered customers/new.html.erb within layouts/application (18.5ms)
+Completed 200 OK in 94ms (Views: 41.9ms | ActiveRecord: 21.8ms)
+
+
+Started POST "/customers" for ::1 at 2016-12-02 17:26:59 +0100
+Processing by CustomersController#create as JS
+  Parameters: {"utf8"=>"✓", "customer"=>{"name"=>"sd", "surname"=>"sss"}, "commit"=>"Save Customer"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (2.8ms)[0m  [1m[32mINSERT INTO "customers" ("name", "surname", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "sd"], ["surname", "sss"], ["created_at", 2016-12-02 16:26:59 UTC], ["updated_at", 2016-12-02 16:26:59 UTC]]
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  Rendering customers/create.js.erb
+  Rendered customers/create.js.erb (0.4ms)
+Completed 200 OK in 18ms (Views: 6.0ms | ActiveRecord: 3.9ms)
+
+
+Started POST "/customers" for ::1 at 2016-12-02 17:27:03 +0100
+Processing by CustomersController#create as JSON
+  Parameters: {"utf8"=>"✓", "customer"=>{"name"=>"sd", "surname"=>"sss"}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+Started POST "/customers" for ::1 at 2016-12-02 17:27:03 +0100
+Processing by CustomersController#create as JS
+  Parameters: {"utf8"=>"✓", "customer"=>{"name"=>"sd", "surname"=>"sss"}, "commit"=>"Save Customer"}
+  [1m[35mSQL (2.0ms)[0m  [1m[32mINSERT INTO "customers" ("name", "surname", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "sd"], ["surname", "sss"], ["created_at", 2016-12-02 16:27:03 UTC], ["updated_at", 2016-12-02 16:27:03 UTC]]
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35mSQL (3.9ms)[0m  [1m[32mINSERT INTO "customers" ("name", "surname", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "sd"], ["surname", "sss"], ["created_at", 2016-12-02 16:27:03 UTC], ["updated_at", 2016-12-02 16:27:03 UTC]]
+  Rendering customers/show.json.jbuilder
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  Rendered customers/_customer.json.jbuilder (0.6ms)
+  Rendering customers/create.js.erb
+  Rendered customers/create.js.erb (0.4ms)
+Completed 200 OK in 21ms (Views: 6.1ms | ActiveRecord: 5.3ms)
+
+
+  Rendered customers/show.json.jbuilder (11.6ms)
+Completed 201 Created in 28ms (Views: 19.5ms | ActiveRecord: 4.0ms)
+
+
+Started POST "/customers" for ::1 at 2016-12-02 17:27:04 +0100
+Started POST "/customers" for ::1 at 2016-12-02 17:27:04 +0100
+Processing by CustomersController#create as JSON
+Processing by CustomersController#create as JSON
+  Parameters: {"utf8"=>"✓", "customer"=>{"name"=>"sd", "surname"=>"sss"}}
+  Parameters: {"utf8"=>"✓", "customer"=>{"name"=>"sd", "surname"=>"sss"}}
+Started POST "/customers" for ::1 at 2016-12-02 17:27:04 +0100
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+Processing by CustomersController#create as JS
+  Parameters: {"utf8"=>"✓", "customer"=>{"name"=>"sd", "surname"=>"sss"}, "commit"=>"Save Customer"}
+  [1m[35m (1.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (2.1ms)[0m  [1m[32mINSERT INTO "customers" ("name", "surname", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "sd"], ["surname", "sss"], ["created_at", 2016-12-02 16:27:04 UTC], ["updated_at", 2016-12-02 16:27:04 UTC]]
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35mSQL (3.5ms)[0m  [1m[32mINSERT INTO "customers" ("name", "surname", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "sd"], ["surname", "sss"], ["created_at", 2016-12-02 16:27:04 UTC], ["updated_at", 2016-12-02 16:27:04 UTC]]
+  Rendering customers/show.json.jbuilder
+  [1m[35mSQL (5.6ms)[0m  [1m[32mINSERT INTO "customers" ("name", "surname", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "sd"], ["surname", "sss"], ["created_at", 2016-12-02 16:27:04 UTC], ["updated_at", 2016-12-02 16:27:04 UTC]]
+  [1m[35m (4.0ms)[0m  [1m[35mCOMMIT[0m
+  Rendered customers/_customer.json.jbuilder (0.6ms)
+  [1m[35m (1.6ms)[0m  [1m[35mCOMMIT[0m
+  Rendering customers/show.json.jbuilder
+  Rendered customers/show.json.jbuilder (6.6ms)
+  Rendering customers/create.js.erb
+  Rendered customers/_customer.json.jbuilder (0.4ms)
+Completed 201 Created in 31ms (Views: 18.6ms | ActiveRecord: 5.1ms)
+
+
+  Rendered customers/create.js.erb (0.3ms)
+  Rendered customers/show.json.jbuilder (5.0ms)
+Completed 200 OK in 28ms (Views: 7.3ms | ActiveRecord: 7.7ms)
+
+
+Completed 201 Created in 32ms (Views: 13.6ms | ActiveRecord: 8.8ms)
+
+
+Started GET "/customers" for ::1 at 2016-12-02 17:27:05 +0100
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (0.6ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (7.1ms)
+Completed 200 OK in 56ms (Views: 52.7ms | ActiveRecord: 0.6ms)
+
+
+Started DELETE "/customers/3" for ::1 at 2016-12-02 17:27:11 +0100
+Processing by CustomersController#destroy as HTML
+  Parameters: {"authenticity_token"=>"ChgaEu7wfYK8oIgqrsbzQj5QGfMgIhfN3enTA5Re9kcbQyIch0Dy4GtkVM0jK5DIF5H6kjKlYs3YzTH5ToaxPg==", "id"=>"3"}
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[31mDELETE FROM "customers" WHERE "customers"."id" = $1[0m  [["id", 3]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/customers
+Completed 302 Found in 10ms (ActiveRecord: 2.5ms)
+
+
+Started GET "/customers" for ::1 at 2016-12-02 17:27:11 +0100
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (3.3ms)
+Completed 200 OK in 36ms (Views: 33.3ms | ActiveRecord: 0.4ms)
+
+
+Started DELETE "/customers/1" for ::1 at 2016-12-02 17:27:13 +0100
+Processing by CustomersController#destroy as HTML
+  Parameters: {"authenticity_token"=>"aDPlUDO8GkJ+FvFRexK9lHyk7hKB3qo2EriDRfk/TnB5aN1eWgyVIKnSLbb2/94eVWUNc5NZ3zYXnGG/I+cJCQ==", "id"=>"1"}
+  [1m[36mCustomer Load (0.5ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "customers" WHERE "customers"."id" = $1[0m  [["id", 1]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/customers
+Completed 302 Found in 7ms (ActiveRecord: 2.6ms)
+
+
+Started GET "/customers" for ::1 at 2016-12-02 17:27:13 +0100
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (0.5ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (3.4ms)
+Completed 200 OK in 36ms (Views: 33.6ms | ActiveRecord: 0.5ms)
+
+
+Started DELETE "/customers/2" for ::1 at 2016-12-02 17:27:14 +0100
+Processing by CustomersController#destroy as HTML
+  Parameters: {"authenticity_token"=>"sjMTgyAtvx5vkH13wCECqmPy6o/3DDCkXlnnqT5hNoqjaCuNSZ0wfLhUoZBNzGEgSjMJ7uWLRaRbfQVT5Llx8w==", "id"=>"2"}
+  [1m[36mCustomer Load (0.5ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "customers" WHERE "customers"."id" = $1[0m  [["id", 2]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/customers
+Completed 302 Found in 5ms (ActiveRecord: 2.2ms)
+
+
+Started GET "/customers" for ::1 at 2016-12-02 17:27:14 +0100
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (0.9ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (3.1ms)
+Completed 200 OK in 25ms (Views: 22.5ms | ActiveRecord: 0.9ms)
+
+
+Started DELETE "/customers/4" for ::1 at 2016-12-02 17:27:15 +0100
+Processing by CustomersController#destroy as HTML
+  Parameters: {"authenticity_token"=>"2StVQQ2L0isz5V5mCEDNzRyULyAFY+rjS4dw2x43ruvIcG1PZDtdSeQhgoGFra5HNVXMQRfkn+NOo5IhxO/pkg==", "id"=>"4"}
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "customers" WHERE "customers"."id" = $1[0m  [["id", 4]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/customers
+Completed 302 Found in 6ms (ActiveRecord: 2.3ms)
+
+
+Started GET "/customers" for ::1 at 2016-12-02 17:27:15 +0100
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (1.9ms)
+Completed 200 OK in 21ms (Views: 19.2ms | ActiveRecord: 0.4ms)
+
+
+Started DELETE "/customers/5" for ::1 at 2016-12-02 17:27:16 +0100
+Processing by CustomersController#destroy as HTML
+  Parameters: {"authenticity_token"=>"tknpOAUd3ojZ7W8yux4RdY5bbfhry5aIK9aItXob18mnEtE2bK1R6g4ps9U283L/p5qOmXlM44gu8mpPoMOQsA==", "id"=>"5"}
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "customers" WHERE "customers"."id" = $1[0m  [["id", 5]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/customers
+Completed 302 Found in 5ms (ActiveRecord: 2.3ms)
+
+
+Started GET "/customers" for ::1 at 2016-12-02 17:27:16 +0100
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (1.8ms)
+Completed 200 OK in 21ms (Views: 18.6ms | ActiveRecord: 0.4ms)
+
+
+Started DELETE "/customers/6" for ::1 at 2016-12-02 17:27:17 +0100
+Processing by CustomersController#destroy as HTML
+  Parameters: {"authenticity_token"=>"N8iyRBaNT8ksV6H4JqCsBUmFpQcAyu7Qx24d6q1UkFMmk4pKfz3Aq/uTfR+rTc+PYERGZhJNm9DCSv8Qd4zXKg==", "id"=>"6"}
+  [1m[36mCustomer Load (0.8ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "customers" WHERE "customers"."id" = $1[0m  [["id", 6]]
+  [1m[35m (1.4ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/customers
+Completed 302 Found in 5ms (ActiveRecord: 2.8ms)
+
+
+Started GET "/customers" for ::1 at 2016-12-02 17:27:17 +0100
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (0.3ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (1.5ms)
+Completed 200 OK in 28ms (Views: 25.7ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:27:19 +0100
+Processing by CustomersController#new as HTML
+  Rendering customers/new.html.erb within layouts/application
+  Rendered customers/_form.html.erb (4.9ms)
+  Rendered customers/new.html.erb within layouts/application (9.3ms)
+Completed 200 OK in 36ms (Views: 34.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/customers" for ::1 at 2016-12-02 17:27:28 +0100
+Processing by CustomersController#create as JS
+  Parameters: {"utf8"=>"✓", "customer"=>{"name"=>"hello", "surname"=>"mar"}, "commit"=>"Save Customer"}
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "customers" ("name", "surname", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "hello"], ["surname", "mar"], ["created_at", 2016-12-02 16:27:28 UTC], ["updated_at", 2016-12-02 16:27:28 UTC]]
+  [1m[35m (1.6ms)[0m  [1m[35mCOMMIT[0m
+  Rendering customers/create.js.erb
+  Rendered customers/create.js.erb (0.3ms)
+Completed 200 OK in 13ms (Views: 4.5ms | ActiveRecord: 2.8ms)
+
+
+Started GET "/customers" for ::1 at 2016-12-02 17:27:30 +0100
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (1.2ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (10.4ms)
+Completed 200 OK in 39ms (Views: 36.0ms | ActiveRecord: 1.2ms)
+
+
+Started DELETE "/customers/7" for ::1 at 2016-12-02 17:29:24 +0100
+Processing by CustomersController#destroy as HTML
+  Parameters: {"authenticity_token"=>"ytNW78NbS2x3LVTTjoo/R5fMIFJHU0xzEjP4sgdO1hnbiG7hquvEDqDpiDQDZ1zNvg3DM1XUOXMXFxpI3ZaRYA==", "id"=>"7"}
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "customers" WHERE "customers"."id" = $1[0m  [["id", 7]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/customers
+Completed 302 Found in 15ms (ActiveRecord: 5.9ms)
+
+
+Started GET "/customers" for ::1 at 2016-12-02 17:29:24 +0100
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 26ms (Views: 24.2ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:29:25 +0100
+Processing by CustomersController#new as HTML
+  Rendering customers/new.html.erb within layouts/application
+  Rendered customers/_form.html.erb (3.5ms)
+  Rendered customers/new.html.erb within layouts/application (7.8ms)
+Completed 200 OK in 36ms (Views: 33.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/customers" for ::1 at 2016-12-02 17:29:31 +0100
+Processing by CustomersController#create as JS
+  Parameters: {"utf8"=>"✓", "customer"=>{"name"=>"mara", "surname"=>"eee"}, "commit"=>"Save Customer"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "customers" ("name", "surname", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "mara"], ["surname", "eee"], ["created_at", 2016-12-02 16:29:31 UTC], ["updated_at", 2016-12-02 16:29:31 UTC]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+  Rendering customers/create.js.erb
+  Rendered customers/create.js.erb (1.1ms)
+Completed 200 OK in 12ms (Views: 6.1ms | ActiveRecord: 1.9ms)
+
+
+Started GET "/customers" for ::1 at 2016-12-02 17:29:33 +0100
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (1.0ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (6.2ms)
+Completed 200 OK in 44ms (Views: 40.2ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:29:52 +0100
+Processing by CustomersController#new as HTML
+  Rendering customers/new.html.erb within layouts/application
+  Rendered customers/_form.html.erb (4.5ms)
+  Rendered customers/new.html.erb within layouts/application (8.1ms)
+Completed 200 OK in 40ms (Views: 38.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers" for ::1 at 2016-12-02 17:39:40 +0100
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (1.7ms)
+Completed 200 OK in 20ms (Views: 17.8ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:39:41 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (111.3ms)
+  Rendered customers/new.js.erb (123.2ms)
+Completed 500 Internal Server Error in 149ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `customer' for #<#<Class:0x007fba8ee69100>:0x007fba91849650>
+Did you mean?  @customer):
+    1: <%= form_for :customer, url: customers_path, remote:true, html: { class: "form-new" }  do |f| %>
+    2:   <% if customer.errors.any? %>
+    3:     <div id="error_explanation">
+    4:       <h2><%= pluralize(customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+    5: 
+  
+app/views/customers/_form.html.erb:2:in `block in _app_views_customers__form_html_erb___3420737768643542015_70219634621760'
+app/views/customers/_form.html.erb:1:in `_app_views_customers__form_html_erb___3420737768643542015_70219634621760'
+app/views/customers/new.js.erb:1:in `_app_views_customers_new_js_erb___273504610581564010_70219641017080'
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.text.erb
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.text.erb
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.text.erb (0.5ms)
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.text.erb
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.text.erb (0.6ms)
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.text.erb (35.8ms)
+Started GET "/customers/new" for ::1 at 2016-12-02 17:39:43 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (122.8ms)
+  Rendered customers/new.js.erb (133.4ms)
+Completed 500 Internal Server Error in 158ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `customer' for #<#<Class:0x007fba8ee69100>:0x007fba91871038>
+Did you mean?  @customer):
+    1: <%= form_for :customer, url: customers_path, remote:true, html: { class: "form-new" }  do |f| %>
+    2:   <% if customer.errors.any? %>
+    3:     <div id="error_explanation">
+    4:       <h2><%= pluralize(customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+    5: 
+  
+app/views/customers/_form.html.erb:2:in `block in _app_views_customers__form_html_erb___3420737768643542015_70219588459380'
+app/views/customers/_form.html.erb:1:in `_app_views_customers__form_html_erb___3420737768643542015_70219588459380'
+app/views/customers/new.js.erb:1:in `_app_views_customers_new_js_erb___273504610581564010_70219641097900'
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.text.erb
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.text.erb
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.text.erb (0.7ms)
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.text.erb
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.text.erb (0.9ms)
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.text.erb (33.5ms)
+Started GET "/customers/new" for ::1 at 2016-12-02 17:39:44 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (125.2ms)
+  Rendered customers/new.js.erb (136.0ms)
+Completed 500 Internal Server Error in 161ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `customer' for #<#<Class:0x007fba8ee69100>:0x007fba8ba879e0>
+Did you mean?  @customer):
+    1: <%= form_for :customer, url: customers_path, remote:true, html: { class: "form-new" }  do |f| %>
+    2:   <% if customer.errors.any? %>
+    3:     <div id="error_explanation">
+    4:       <h2><%= pluralize(customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+    5: 
+  
+app/views/customers/_form.html.erb:2:in `block in _app_views_customers__form_html_erb___3420737768643542015_70219634911120'
+app/views/customers/_form.html.erb:1:in `_app_views_customers__form_html_erb___3420737768643542015_70219634911120'
+app/views/customers/new.js.erb:1:in `_app_views_customers_new_js_erb___273504610581564010_70219641062440'
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.text.erb
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.text.erb
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.text.erb (0.6ms)
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.text.erb
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.text.erb (0.7ms)
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.text.erb (34.1ms)
+Started GET "/customers/new" for ::1 at 2016-12-02 17:39:44 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (116.3ms)
+  Rendered customers/new.js.erb (127.2ms)
+Completed 500 Internal Server Error in 152ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `customer' for #<#<Class:0x007fba8ee69100>:0x007fba8a365730>
+Did you mean?  @customer):
+    1: <%= form_for :customer, url: customers_path, remote:true, html: { class: "form-new" }  do |f| %>
+    2:   <% if customer.errors.any? %>
+    3:     <div id="error_explanation">
+    4:       <h2><%= pluralize(customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+    5: 
+  
+app/views/customers/_form.html.erb:2:in `block in _app_views_customers__form_html_erb___3420737768643542015_70219586421560'
+app/views/customers/_form.html.erb:1:in `_app_views_customers__form_html_erb___3420737768643542015_70219586421560'
+app/views/customers/new.js.erb:1:in `_app_views_customers_new_js_erb___273504610581564010_70219590765260'
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.text.erb
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.text.erb
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.text.erb (0.6ms)
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.text.erb
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.text.erb (0.7ms)
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.text.erb (33.6ms)
+Started GET "/customers/new" for ::1 at 2016-12-02 17:39:44 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (111.1ms)
+  Rendered customers/new.js.erb (121.7ms)
+Completed 500 Internal Server Error in 147ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `customer' for #<#<Class:0x007fba8ee69100>:0x007fba8d832698>
+Did you mean?  @customer):
+    1: <%= form_for :customer, url: customers_path, remote:true, html: { class: "form-new" }  do |f| %>
+    2:   <% if customer.errors.any? %>
+    3:     <div id="error_explanation">
+    4:       <h2><%= pluralize(customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+    5: 
+  
+app/views/customers/_form.html.erb:2:in `block in _app_views_customers__form_html_erb___3420737768643542015_70219586223600'
+app/views/customers/_form.html.erb:1:in `_app_views_customers__form_html_erb___3420737768643542015_70219586223600'
+app/views/customers/new.js.erb:1:in `_app_views_customers_new_js_erb___273504610581564010_70219607427820'
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.text.erb
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.text.erb
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.text.erb (0.6ms)
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.text.erb
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.text.erb (0.6ms)
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.text.erb (34.3ms)
+Started GET "/customers/new" for ::1 at 2016-12-02 17:39:50 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (109.1ms)
+  Rendered customers/new.js.erb (119.9ms)
+Completed 500 Internal Server Error in 145ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `customer' for #<#<Class:0x007fba8ee69100>:0x007fba8de78728>
+Did you mean?  @customer):
+    1: <%= form_for :customer, url: customers_path, remote:true, html: { class: "form-new" }  do |f| %>
+    2:   <% if customer.errors.any? %>
+    3:     <div id="error_explanation">
+    4:       <h2><%= pluralize(customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+    5: 
+  
+app/views/customers/_form.html.erb:2:in `block in _app_views_customers__form_html_erb___3420737768643542015_70219610493340'
+app/views/customers/_form.html.erb:1:in `_app_views_customers__form_html_erb___3420737768643542015_70219610493340'
+app/views/customers/new.js.erb:1:in `_app_views_customers_new_js_erb___273504610581564010_70219610708880'
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.text.erb
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.text.erb
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.text.erb (0.5ms)
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.text.erb
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.text.erb (0.6ms)
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.text.erb (33.4ms)
+Started GET "/customers/new" for ::1 at 2016-12-02 17:39:51 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (112.3ms)
+  Rendered customers/new.js.erb (123.0ms)
+Completed 500 Internal Server Error in 149ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `customer' for #<#<Class:0x007fba8ee69100>:0x007fba8eb3a600>
+Did you mean?  @customer):
+    1: <%= form_for :customer, url: customers_path, remote:true, html: { class: "form-new" }  do |f| %>
+    2:   <% if customer.errors.any? %>
+    3:     <div id="error_explanation">
+    4:       <h2><%= pluralize(customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+    5: 
+  
+app/views/customers/_form.html.erb:2:in `block in _app_views_customers__form_html_erb___3420737768643542015_70219617293180'
+app/views/customers/_form.html.erb:1:in `_app_views_customers__form_html_erb___3420737768643542015_70219617293180'
+app/views/customers/new.js.erb:1:in `_app_views_customers_new_js_erb___273504610581564010_70219617403880'
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.text.erb
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.text.erb
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.text.erb (0.6ms)
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.text.erb
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.text.erb (0.6ms)
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.text.erb (33.3ms)
+Started GET "/customers/new" for ::1 at 2016-12-02 17:39:51 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (111.9ms)
+  Rendered customers/new.js.erb (122.5ms)
+Completed 500 Internal Server Error in 147ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `customer' for #<#<Class:0x007fba8ee69100>:0x007fba8b2acfe0>
+Did you mean?  @customer):
+    1: <%= form_for :customer, url: customers_path, remote:true, html: { class: "form-new" }  do |f| %>
+    2:   <% if customer.errors.any? %>
+    3:     <div id="error_explanation">
+    4:       <h2><%= pluralize(customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+    5: 
+  
+app/views/customers/_form.html.erb:2:in `block in _app_views_customers__form_html_erb___3420737768643542015_70219617748720'
+app/views/customers/_form.html.erb:1:in `_app_views_customers__form_html_erb___3420737768643542015_70219617748720'
+app/views/customers/new.js.erb:1:in `_app_views_customers_new_js_erb___273504610581564010_70219587746300'
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.text.erb
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.text.erb
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.text.erb (0.5ms)
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.text.erb
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.text.erb (0.6ms)
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.text.erb (31.9ms)
+Started GET "/customers" for ::1 at 2016-12-02 17:42:41 +0100
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 21ms (Views: 19.2ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2016-12-02 17:42:42 +0100
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (1.8ms)
+Completed 200 OK in 25ms (Views: 23.1ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2016-12-02 17:42:43 +0100
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (1.9ms)
+Completed 200 OK in 25ms (Views: 22.5ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:42:46 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.9ms)
+  Rendered customers/new.js.erb (14.5ms)
+Completed 200 OK in 43ms (Views: 30.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:42:47 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.6ms)
+  Rendered customers/new.js.erb (12.3ms)
+Completed 200 OK in 38ms (Views: 26.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:42:47 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.8ms)
+  Rendered customers/new.js.erb (12.5ms)
+Completed 200 OK in 38ms (Views: 25.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:42:47 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.9ms)
+  Rendered customers/new.js.erb (12.9ms)
+Completed 200 OK in 40ms (Views: 27.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:42:47 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.6ms)
+  Rendered customers/new.js.erb (12.7ms)
+Completed 200 OK in 40ms (Views: 27.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:42:48 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.5ms)
+  Rendered customers/new.js.erb (12.1ms)
+Completed 200 OK in 37ms (Views: 25.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:42:48 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.5ms)
+  Rendered customers/new.js.erb (12.4ms)
+Completed 200 OK in 37ms (Views: 25.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:42:48 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.4ms)
+  Rendered customers/new.js.erb (12.5ms)
+Completed 200 OK in 37ms (Views: 25.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:42:50 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.6ms)
+  Rendered customers/new.js.erb (12.6ms)
+Completed 200 OK in 39ms (Views: 26.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2016-12-02 17:44:00 +0100
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (1.6ms)
+Completed 200 OK in 25ms (Views: 22.8ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:44:02 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/new.js.erb (0.3ms)
+Completed 200 OK in 27ms (Views: 13.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2016-12-02 17:45:09 +0100
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (0.6ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 20ms (Views: 17.5ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:45:11 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.6ms)
+  Rendered customers/new.js.erb (14.2ms)
+Completed 200 OK in 42ms (Views: 29.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:45:12 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.6ms)
+  Rendered customers/new.js.erb (12.3ms)
+Completed 200 OK in 38ms (Views: 25.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2016-12-02 17:45:20 +0100
+Started GET "/customers/new" for ::1 at 2016-12-02 17:45:20 +0100
+Processing by CustomersController#index as HTML
+Processing by CustomersController#new as JS
+  Rendering customers/index.html.erb within layouts/application
+  Rendering customers/new.js.erb
+  [1m[36mCustomer Load (12.3ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/_form.html.erb (1.5ms)
+  Rendered customers/index.html.erb within layouts/application (15.5ms)
+  Rendered customers/new.js.erb (14.9ms)
+Completed 200 OK in 44ms (Views: 31.2ms | ActiveRecord: 0.0ms)
+
+
+Completed 200 OK in 63ms (Views: 48.9ms | ActiveRecord: 12.3ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:45:21 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.9ms)
+  Rendered customers/new.js.erb (13.2ms)
+Completed 200 OK in 39ms (Views: 27.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:45:22 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.8ms)
+  Rendered customers/new.js.erb (13.8ms)
+Completed 200 OK in 41ms (Views: 29.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:45:22 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.6ms)
+  Rendered customers/new.js.erb (13.2ms)
+Completed 200 OK in 41ms (Views: 28.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:45:22 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.8ms)
+  Rendered customers/new.js.erb (12.7ms)
+Completed 200 OK in 37ms (Views: 25.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:45:23 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (2.4ms)
+  Rendered customers/new.js.erb (13.5ms)
+Completed 200 OK in 39ms (Views: 27.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:45:24 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (2.1ms)
+  Rendered customers/new.js.erb (14.4ms)
+Completed 200 OK in 39ms (Views: 27.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:45:24 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (2.2ms)
+  Rendered customers/new.js.erb (14.5ms)
+Completed 200 OK in 40ms (Views: 27.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:45:24 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.7ms)
+  Rendered customers/new.js.erb (13.8ms)
+Completed 200 OK in 40ms (Views: 27.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:45:24 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.7ms)
+  Rendered customers/new.js.erb (12.6ms)
+Completed 200 OK in 38ms (Views: 25.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:45:24 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.7ms)
+  Rendered customers/new.js.erb (12.6ms)
+Completed 200 OK in 38ms (Views: 25.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:45:24 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.5ms)
+  Rendered customers/new.js.erb (12.3ms)
+Completed 200 OK in 37ms (Views: 25.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:45:25 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.7ms)
+  Rendered customers/new.js.erb (12.6ms)
+Completed 200 OK in 37ms (Views: 25.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2016-12-02 17:48:46 +0100
+Processing by CustomersController#index as HTML
+Started GET "/customers/new" for ::1 at 2016-12-02 17:48:46 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (11.2ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (12.8ms)
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.4ms)
+  Rendered customers/new.js.erb (15.8ms)
+Completed 200 OK in 48ms (Views: 34.2ms | ActiveRecord: 0.0ms)
+
+
+Completed 200 OK in 74ms (Views: 60.2ms | ActiveRecord: 11.2ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 17:48:48 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.7ms)
+  Rendered customers/new.js.erb (12.4ms)
+Completed 200 OK in 37ms (Views: 25.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/customers" for ::1 at 2016-12-02 17:49:01 +0100
+Processing by CustomersController#create as JS
+  Parameters: {"utf8"=>"✓", "customer"=>{"name"=>"re", "surname"=>"dd"}, "commit"=>"Save Customer"}
+  [1m[35m (1.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "customers" ("name", "surname", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "re"], ["surname", "dd"], ["created_at", 2016-12-02 16:49:01 UTC], ["updated_at", 2016-12-02 16:49:01 UTC]]
+  [1m[35m (9.9ms)[0m  [1m[35mCOMMIT[0m
+  Rendering customers/create.js.erb
+  Rendered customers/create.js.erb (0.6ms)
+Completed 200 OK in 29ms (Views: 9.2ms | ActiveRecord: 12.2ms)
+
+
+Started GET "/" for ::1 at 2016-12-02 17:49:11 +0100
+Processing by CustomersController#index as HTML
+Started GET "/customers/new" for ::1 at 2016-12-02 17:49:11 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (12.3ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (14.1ms)
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.6ms)
+Completed 200 OK in 65ms (Views: 48.1ms | ActiveRecord: 12.3ms)
+
+
+  Rendered customers/new.js.erb (13.5ms)
+Completed 200 OK in 56ms (Views: 42.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2016-12-02 18:00:14 +0100
+Processing by CustomersController#index as HTML
+Started GET "/customers/new" for ::1 at 2016-12-02 18:00:14 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (13.1ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (15.4ms)
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.7ms)
+  Rendered customers/new.js.erb (17.1ms)
+Completed 200 OK in 51ms (Views: 36.7ms | ActiveRecord: 0.0ms)
+
+
+Completed 200 OK in 71ms (Views: 56.1ms | ActiveRecord: 13.1ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 18:00:17 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.7ms)
+  Rendered customers/new.js.erb (12.4ms)
+Completed 200 OK in 37ms (Views: 26.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/customers" for ::1 at 2016-12-02 18:00:24 +0100
+Processing by CustomersController#create as JS
+  Parameters: {"utf8"=>"✓", "customer"=>{"name"=>"hello", "surname"=>"ma"}, "commit"=>"Save Customer"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "customers" ("name", "surname", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "hello"], ["surname", "ma"], ["created_at", 2016-12-02 17:00:24 UTC], ["updated_at", 2016-12-02 17:00:24 UTC]]
+  [1m[35m (1.5ms)[0m  [1m[35mCOMMIT[0m
+  Rendering customers/create.js.erb
+  Rendered customers/create.js.erb (3.8ms)
+Completed 500 Internal Server Error in 16ms (ActiveRecord: 2.1ms)
+
+
+  
+ActionView::Template::Error (Missing partial customers/_customer with {:locale=>[:en], :formats=>[:js, :html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :coffee, :jbuilder]}. Searched in:
+  * "/Users/Edwardver/Documents/RAILS/task3/app/views"
+):
+    16: });
+    17: $(".form-new").remove();
+    18: $("#new_link").show();
+    19: $("#customers").append('<%= j render(@customer) %>');
+  
+app/views/customers/create.js.erb:19:in `_app_views_customers_create_js_erb___804006686678616544_70219617600200'
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.text.erb
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.text.erb
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.text.erb (0.6ms)
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.text.erb
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.text.erb (0.6ms)
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.text.erb (33.2ms)
+Started GET "/" for ::1 at 2016-12-02 18:00:30 +0100
+Started GET "/customers/new" for ::1 at 2016-12-02 18:00:30 +0100
+Processing by CustomersController#index as HTML
+Processing by CustomersController#new as JS
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (11.3ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (13.4ms)
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.6ms)
+  Rendered customers/new.js.erb (17.1ms)
+Completed 200 OK in 49ms (Views: 33.8ms | ActiveRecord: 0.0ms)
+
+
+Completed 200 OK in 64ms (Views: 50.7ms | ActiveRecord: 11.3ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 18:02:42 +0100
+Started GET "/" for ::1 at 2016-12-02 18:02:42 +0100
+Processing by CustomersController#new as JS
+Processing by CustomersController#index as HTML
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.7ms)
+  Rendering customers/index.html.erb within layouts/application
+  Rendered customers/new.js.erb (17.2ms)
+Completed 200 OK in 46ms (Views: 32.9ms | ActiveRecord: 0.0ms)
+
+
+  [1m[36mCustomer Load (1.2ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (3.7ms)
+Completed 200 OK in 37ms (Views: 23.2ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 18:02:43 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.6ms)
+  Rendered customers/new.js.erb (12.9ms)
+Completed 200 OK in 38ms (Views: 26.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/customers" for ::1 at 2016-12-02 18:02:46 +0100
+Processing by CustomersController#create as JS
+  Parameters: {"utf8"=>"✓", "customer"=>{"name"=>"did", "surname"=>"ddd"}, "commit"=>"Save Customer"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "customers" ("name", "surname", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "did"], ["surname", "ddd"], ["created_at", 2016-12-02 17:02:46 UTC], ["updated_at", 2016-12-02 17:02:46 UTC]]
+  [1m[35m (1.6ms)[0m  [1m[35mCOMMIT[0m
+  Rendering customers/create.js.erb
+  Rendered customers/create.js.erb (2.6ms)
+Completed 500 Internal Server Error in 13ms (ActiveRecord: 2.5ms)
+
+
+  
+ActionView::Template::Error (':index' is not an ActiveModel-compatible object. It must implement :to_partial_path.):
+    16: });
+    17: $(".form-new").remove();
+    18: $("#new_link").show();
+    19: $("#customers").append('<%= j render(:index) %>');
+  
+app/views/customers/create.js.erb:19:in `_app_views_customers_create_js_erb___804006686678616544_70219617075960'
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.text.erb
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.text.erb
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.text.erb (0.5ms)
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.text.erb
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.text.erb (0.6ms)
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.text.erb (31.9ms)
+Started GET "/" for ::1 at 2016-12-02 18:02:51 +0100
+Processing by CustomersController#index as HTML
+Started GET "/customers/new" for ::1 at 2016-12-02 18:02:51 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/index.html.erb within layouts/application
+  Rendering customers/new.js.erb
+  [1m[36mCustomer Load (14.0ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (16.5ms)
+  Rendered customers/_form.html.erb (1.9ms)
+  Rendered customers/new.js.erb (17.5ms)
+Completed 200 OK in 46ms (Views: 33.8ms | ActiveRecord: 0.0ms)
+
+
+Completed 200 OK in 67ms (Views: 50.0ms | ActiveRecord: 14.0ms)
+
+
+Started GET "/" for ::1 at 2016-12-02 18:03:41 +0100
+Started GET "/customers/new" for ::1 at 2016-12-02 18:03:41 +0100
+Processing by CustomersController#index as HTML
+Processing by CustomersController#new as JS
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (11.1ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (13.1ms)
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (2.5ms)
+  Rendered customers/new.js.erb (18.5ms)
+Completed 200 OK in 51ms (Views: 36.9ms | ActiveRecord: 0.0ms)
+
+
+Completed 200 OK in 68ms (Views: 54.9ms | ActiveRecord: 11.1ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 18:03:42 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.6ms)
+  Rendered customers/new.js.erb (12.6ms)
+Completed 200 OK in 38ms (Views: 26.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/customers" for ::1 at 2016-12-02 18:03:44 +0100
+Processing by CustomersController#create as JS
+  Parameters: {"utf8"=>"✓", "customer"=>{"name"=>"dfd", "surname"=>"dd"}, "commit"=>"Save Customer"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "customers" ("name", "surname", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "dfd"], ["surname", "dd"], ["created_at", 2016-12-02 17:03:44 UTC], ["updated_at", 2016-12-02 17:03:44 UTC]]
+  [1m[35m (1.4ms)[0m  [1m[35mCOMMIT[0m
+  Rendering customers/create.js.erb
+  Rendered customers/create.js.erb (2.4ms)
+Completed 500 Internal Server Error in 15ms (ActiveRecord: 2.3ms)
+
+
+  
+ActionView::Template::Error (':index' is not an ActiveModel-compatible object. It must implement :to_partial_path.):
+    16: });
+    17: $(".form-new").remove();
+    18: $("#new_link").show();
+    19: // $("#customers").append('<%= j render(:index) %>');
+  
+app/views/customers/create.js.erb:19:in `_app_views_customers_create_js_erb___804006686678616544_70219610113180'
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.text.erb
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.text.erb
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.text.erb (0.6ms)
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.text.erb
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.text.erb (0.7ms)
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.text.erb (32.7ms)
+Started GET "/" for ::1 at 2016-12-02 18:05:12 +0100
+Processing by CustomersController#index as HTML
+Started GET "/customers/new" for ::1 at 2016-12-02 18:05:12 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (11.5ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (14.2ms)
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.6ms)
+  Rendered customers/new.js.erb (14.8ms)
+Completed 200 OK in 47ms (Views: 33.0ms | ActiveRecord: 0.0ms)
+
+
+Completed 200 OK in 69ms (Views: 55.1ms | ActiveRecord: 11.5ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 18:05:14 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.6ms)
+  Rendered customers/new.js.erb (12.3ms)
+Completed 200 OK in 37ms (Views: 25.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/customers" for ::1 at 2016-12-02 18:05:18 +0100
+Processing by CustomersController#create as JS
+  Parameters: {"utf8"=>"✓", "customer"=>{"name"=>"dd", "surname"=>"ddd"}, "commit"=>"Save Customer"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "customers" ("name", "surname", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "dd"], ["surname", "ddd"], ["created_at", 2016-12-02 17:05:18 UTC], ["updated_at", 2016-12-02 17:05:18 UTC]]
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+  Rendering customers/create.js.erb
+  Rendered customers/create.js.erb (3.9ms)
+Completed 500 Internal Server Error in 14ms (ActiveRecord: 1.9ms)
+
+
+  
+ActionView::Template::Error (':index' is not an ActiveModel-compatible object. It must implement :to_partial_path.):
+    16: });
+    17: // $(".form-new").remove();
+    18: $("#new_link").show();
+    19: // $("#customers").append('<%= j render(:index) %>');
+  
+app/views/customers/create.js.erb:19:in `_app_views_customers_create_js_erb___804006686678616544_70219617540320'
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.text.erb
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.text.erb
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_trace.text.erb (0.8ms)
+  Rendering /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.text.erb
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.text.erb (0.8ms)
+  Rendered /Users/Edwardver/.rvm/gems/ruby-2.3.0/gems/actionpack-5.0.0.1/lib/action_dispatch/middleware/templates/rescues/template_error.text.erb (34.5ms)
+Started GET "/" for ::1 at 2016-12-02 18:05:20 +0100
+Processing by CustomersController#index as HTML
+Started GET "/customers/new" for ::1 at 2016-12-02 18:05:20 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/index.html.erb within layouts/application
+  Rendering customers/new.js.erb
+  Rendered customers/_form.html.erb (1.9ms)
+  [1m[36mCustomer Load (13.0ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/new.js.erb (13.1ms)
+  Rendered customers/index.html.erb within layouts/application (15.3ms)
+Completed 200 OK in 47ms (Views: 33.2ms | ActiveRecord: 0.0ms)
+
+
+Completed 200 OK in 64ms (Views: 23.2ms | ActiveRecord: 13.0ms)
+
+
+Started DELETE "/customers/13" for ::1 at 2016-12-02 18:07:04 +0100
+Processing by CustomersController#destroy as HTML
+  Parameters: {"authenticity_token"=>"emdasTQZthUIDmFfuKSGQ/CE/RkdeA7W1bToG2YYb+drPGK/Xak5d9/Kvbg1SeXJ2UUeeA//e9bQkArhvMAong==", "id"=>"13"}
+  [1m[36mCustomer Load (0.3ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 13], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "customers" WHERE "customers"."id" = $1[0m  [["id", 13]]
+  [1m[35m (1.1ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/customers
+Completed 302 Found in 5ms (ActiveRecord: 2.3ms)
+
+
+Started GET "/customers" for ::1 at 2016-12-02 18:07:04 +0100
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (2.4ms)
+Completed 200 OK in 22ms (Views: 20.4ms | ActiveRecord: 0.4ms)
+
+
+Started DELETE "/customers/11" for ::1 at 2016-12-02 18:07:06 +0100
+Processing by CustomersController#destroy as HTML
+  Parameters: {"authenticity_token"=>"oQAuLvCKyvwnwkXmcJ9jL+Z2oqvNvXtFGHVg9oCjlF2wWxYgmTpFnvAGmQH9cgClz7dByt86DkUdUYIMWnvTJA==", "id"=>"11"}
+  [1m[36mCustomer Load (0.3ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "customers" WHERE "customers"."id" = $1[0m  [["id", 11]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/customers
+Completed 302 Found in 4ms (ActiveRecord: 1.6ms)
+
+
+Started GET "/customers" for ::1 at 2016-12-02 18:07:06 +0100
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (0.5ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 20ms (Views: 18.4ms | ActiveRecord: 0.5ms)
+
+
+Started DELETE "/customers/10" for ::1 at 2016-12-02 18:07:07 +0100
+Processing by CustomersController#destroy as HTML
+  Parameters: {"authenticity_token"=>"1UBMNu6lTVfGQhC7Yw7S92UTdxFK+nPlMZOHrAOrYgDEG3Q4hxXCNRGGzFzu47F9TNKUcFh9BuU0t2VW2XMleQ==", "id"=>"10"}
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "customers" WHERE "customers"."id" = $1[0m  [["id", 10]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/customers
+Completed 302 Found in 3ms (ActiveRecord: 1.3ms)
+
+
+Started GET "/customers" for ::1 at 2016-12-02 18:07:07 +0100
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (2.3ms)
+Completed 200 OK in 21ms (Views: 18.6ms | ActiveRecord: 0.4ms)
+
+
+Started DELETE "/customers/9" for ::1 at 2016-12-02 18:07:09 +0100
+Processing by CustomersController#destroy as HTML
+  Parameters: {"authenticity_token"=>"ItkBsna7xclHC4326uyPDqhr7MD/dhbJaN3EGKsbdvszgjm8HwtKq5DPURFnAeyEgaoPoe3xY8lt+SbiccMxgg==", "id"=>"9"}
+  [1m[36mCustomer Load (0.3ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "customers" WHERE "customers"."id" = $1[0m  [["id", 9]]
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/customers
+Completed 302 Found in 4ms (ActiveRecord: 2.2ms)
+
+
+Started GET "/customers" for ::1 at 2016-12-02 18:07:09 +0100
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (2.0ms)
+Completed 200 OK in 22ms (Views: 20.1ms | ActiveRecord: 0.4ms)
+
+
+Started DELETE "/customers/12" for ::1 at 2016-12-02 18:07:10 +0100
+Processing by CustomersController#destroy as HTML
+  Parameters: {"authenticity_token"=>"DYVWHQWUekLUMF+jFdmx3wg5AqFk4k8oxHJ46o7UhTEc3m4TbCT1IAP0g0SYNNJVIfjhwHZlOijBVpoQVAzCSA==", "id"=>"12"}
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 12], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[31mDELETE FROM "customers" WHERE "customers"."id" = $1[0m  [["id", 12]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/customers
+Completed 302 Found in 6ms (ActiveRecord: 2.4ms)
+
+
+Started GET "/customers" for ::1 at 2016-12-02 18:07:10 +0100
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (0.3ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (1.7ms)
+Completed 200 OK in 21ms (Views: 18.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/customers" for ::1 at 2016-12-02 18:20:55 +0100
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered collection of customers/_customer.html.erb [1 times] (1.3ms)
+  Rendered customers/index.html.erb within layouts/application (7.3ms)
+Completed 200 OK in 88ms (Views: 83.1ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/customers" for ::1 at 2016-12-02 18:21:01 +0100
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered collection of customers/_customer.html.erb [1 times] (0.7ms)
+  Rendered customers/index.html.erb within layouts/application (3.2ms)
+Completed 200 OK in 24ms (Views: 21.6ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 18:21:03 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.html.erb within layouts/application
+  Rendered customers/_form.html.erb (1.9ms)
+  Rendered customers/new.html.erb within layouts/application (13.9ms)
+Completed 200 OK in 54ms (Views: 41.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 18:21:04 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.html.erb within layouts/application
+  Rendered customers/_form.html.erb (1.8ms)
+  Rendered customers/new.html.erb within layouts/application (12.6ms)
+Completed 200 OK in 50ms (Views: 39.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 18:21:05 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.html.erb within layouts/application
+  Rendered customers/_form.html.erb (1.8ms)
+  Rendered customers/new.html.erb within layouts/application (12.7ms)
+Completed 200 OK in 57ms (Views: 45.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 18:21:05 +0100
+Processing by CustomersController#new as JS
+  Rendering customers/new.html.erb within layouts/application
+  Rendered customers/_form.html.erb (1.7ms)
+  Rendered customers/new.html.erb within layouts/application (12.5ms)
+Completed 200 OK in 48ms (Views: 37.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers" for ::1 at 2016-12-02 18:21:15 +0100
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (0.5ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered collection of customers/_customer.html.erb [1 times] (0.8ms)
+  Rendered customers/index.html.erb within layouts/application (4.2ms)
+Completed 200 OK in 21ms (Views: 19.0ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-02 18:21:17 +0100
+Processing by CustomersController#new as HTML
+  Rendering customers/new.html.erb within layouts/application
+  Rendered customers/_form.html.erb (2.9ms)
+  Rendered customers/new.html.erb within layouts/application (7.0ms)
+Completed 200 OK in 40ms (Views: 37.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers" for ::1 at 2016-12-02 18:21:19 +0100
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (0.9ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered collection of customers/_customer.html.erb [1 times] (0.9ms)
+  Rendered customers/index.html.erb within layouts/application (8.2ms)
+Completed 200 OK in 41ms (Views: 37.5ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/" for ::1 at 2016-12-03 08:44:33 +0100
+Started GET "/customers/new" for ::1 at 2016-12-03 08:44:33 +0100
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by CustomersController#new as JS
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  Rendering customers/new.html.erb within layouts/application
+  [1m[36mCustomer Load (11.8ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered collection of customers/_customer.html.erb [1 times] (7.6ms)
+  Rendered customers/index.html.erb within layouts/application (30.9ms)
+  Rendered customers/_form.html.erb (192.5ms)
+  Rendered customers/new.html.erb within layouts/application (205.6ms)
+Completed 200 OK in 398ms (Views: 380.2ms | ActiveRecord: 11.8ms)
+
+
+Completed 200 OK in 408ms (Views: 367.0ms | ActiveRecord: 9.8ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-12-03 08:44:39 +0100
+Processing by CustomersController#new as HTML
+  Rendering customers/new.html.erb within layouts/application
+  Rendered customers/_form.html.erb (5.4ms)
+  Rendered customers/new.html.erb within layouts/application (10.2ms)
+Completed 200 OK in 40ms (Views: 38.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers" for ::1 at 2016-12-03 08:44:41 +0100
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (1.3ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered collection of customers/_customer.html.erb [1 times] (1.5ms)
+  Rendered customers/index.html.erb within layouts/application (8.6ms)
+Completed 200 OK in 45ms (Views: 42.4ms | ActiveRecord: 1.3ms)
+
+

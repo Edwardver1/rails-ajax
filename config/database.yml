@@ -1,0 +1,19 @@
+
+    default: &default
+      adapter: postgresql
+      host : localhost
+      encoding: utf8
+      pool: 5
+      timeout: 5000
+
+    development:
+      <<: *default
+      database: task3
+      username: postgres
+      password: postgres
+
+    test:
+      <<: *default
+      database: task3
+      username: postgres
+      password: postgres

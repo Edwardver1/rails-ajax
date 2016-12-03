@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Customers</h1>
+<input id="search" type="text" name="Search"><br>
+<table id="customers-table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Surname</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <%= render @customers %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Customer', new_customer_path , id:'new_link'%>
